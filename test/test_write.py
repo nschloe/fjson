@@ -11,6 +11,13 @@ def test_simple():
     assert ref == string
 
 
+def test_indent():
+    a = {"a": 1, "b": math.pi}
+    ref = json.dumps(a, indent=2)
+    string = fjson.dumps(a, indent=2)
+    assert ref == string
+
+
 def test_format():
     a = {"a": 1, "b": math.pi}
     string = fjson.dumps(a, float_fmt=".6e")

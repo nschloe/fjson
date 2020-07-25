@@ -1,8 +1,30 @@
-def dumps(d, float_fmt=None):
+def dumps(d, float_fmt=None, indent=None):
     sd = _dict_to_strings(d, float_fmt)
 
     # convert string dict to a single string
-    return "{" + ", ".join([f"{key}: {value}" for key, value in sd.items()]) + "}"
+    if indent is None:
+        return "{" + ", ".join([f"{key}: {value}" for key, value in sd.items()]) + "}"
+
+    return _dict_to_string(sd, indent)
+
+
+def _dict_to_string(sd, indent, level=1):
+    out = ""
+    out += "{\n"
+    length = len(sd)
+    for k, (key, value) in enumerate(sd.items()):
+        if isinstance(value, dict):
+            out += _dict_to_string(value, indent, level + 1)
+        else:
+            out += (level * indent) * " " + f"{key}: {value}"
+
+        if k < length - 1:
+            out += ","
+
+        out += "\n"
+
+    out += "}"
+    return out
 
 
 def _dict_to_strings(d, float_fmt):

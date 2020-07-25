@@ -1,4 +1,7 @@
-# fjson
+<p align="center">
+  <a href="https://github.com/nschloe/fjson"><img alt="fjson" src="https://nschloe.github.io/fjson/logo.svg" width="50%"></a>
+  <p align="center">JSON with float formatting.</p>
+</p>
 
 [![gh-actions](https://img.shields.io/github/workflow/status/nschloe/fjson/ci?style=flat-square)](https://github.com/nschloe/fjson/actions?query=workflow%3Aci)
 [![codecov](https://img.shields.io/codecov/c/github/nschloe/fjson.svg?style=flat-square)](https://codecov.io/gh/nschloe/fjson)
@@ -19,7 +22,7 @@ import fjson
 data = {"a": 1, "b": math.pi}
 print(fjson.dumps(data, float_format=".6e", indent=2))
 ```
-```
+```json
 {
   "a": 1,
   "b": 3.141593e+00

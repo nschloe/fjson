@@ -1,3 +1,7 @@
+def dump(d, fp, **kwargs):
+    fp.write(dumps(d, **kwargs))
+
+
 def dumps(d, float_fmt=None, indent=None):
     sd = _dict_to_strings(d, float_fmt)
     out = _dict_to_string(sd, indent)

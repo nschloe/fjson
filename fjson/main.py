@@ -36,4 +36,4 @@ def _tostring_int(val):
 def _tostring_float(val, fmt):
     if fmt is None:
         return str(val)
-    return f"{val:.g}"
+    return f"{val:{fmt}}"

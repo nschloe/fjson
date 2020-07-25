@@ -8,19 +8,11 @@ def _dict_to_string(sd, indent, level=1):
     out_lst = []
     length = len(sd)
     for k, (key, value) in enumerate(sd.items()):
-        if indent is not None:
-            out = (level * indent) * " "
-        else:
-            out = ""
+        out = "" if indent is None else (level * indent) * " "
 
         out += f"{key}: "
 
-        if isinstance(value, dict):
-            out += _dict_to_string(value, indent, level + 1)
-        elif isinstance(value, list):
-            out += _list_to_string(value, indent, level + 1)
-        else:
-            out += f"{value}"
+        out += _value_to_string2(value, indent, level + 1)
 
         if k < length - 1:
             out += ","
@@ -38,17 +30,9 @@ def _list_to_string(lst, indent, level=1):
     out_lst = []
     length = len(lst)
     for k, value in enumerate(lst):
-        if indent is not None:
-            out = (level * indent) * " "
-        else:
-            out = ""
+        out = "" if indent is None else (level * indent) * " "
 
-        if isinstance(value, dict):
-            out += _dict_to_string(value, indent, level + 1)
-        elif isinstance(value, list):
-            out += _list_to_string(value, indent, level + 1)
-        else:
-            out += f"{value}"
+        out += _value_to_string2(value, indent, level + 1)
 
         if k < length - 1:
             out += ","
@@ -60,6 +44,14 @@ def _list_to_string(lst, indent, level=1):
     if indent is None:
         return "[" + "".join(out_lst) + "]"
     return "[\n" + "\n".join(out_lst) + "\n" + (indent * (level - 1) * " ") + "]"
+
+
+def _value_to_string2(value, indent, level):
+    if isinstance(value, dict):
+        return _dict_to_string(value, indent, level)
+    elif isinstance(value, list):
+        return _list_to_string(value, indent, level)
+    return f"{value}"
 
 
 def _value_to_string(value, float_fmt):

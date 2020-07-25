@@ -2,8 +2,8 @@ def dump(d, fp, **kwargs):
     fp.write(dumps(d, **kwargs))
 
 
-def dumps(d, float_fmt=None, indent=None):
-    sd = _dict_to_strings(d, float_fmt)
+def dumps(d, float_format=None, indent=None):
+    sd = _dict_to_strings(d, float_format)
     out = _dict_to_string(sd, indent)
     return out
 
@@ -70,7 +70,15 @@ def _value_to_string(value, float_fmt):
     elif isinstance(value, float):
         return _tostring_float(value, float_fmt)
 
-    raise ValueError(f"Don't know how to handle entry {value}.")
+    try:
+        # works for numpy arrays
+        value = value.tolist()
+    except AttributeError:
+        pass
+    else:
+        return _list_to_strings(value, float_fmt)
+
+    raise ValueError(f"Don't know how to handle entry of type {type(value)}.")
 
 
 def _dict_to_strings(d, float_fmt):

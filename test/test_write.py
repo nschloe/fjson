@@ -1,6 +1,7 @@
 import json
 import math
 
+import numpy
 import pytest
 
 import fjson
@@ -23,11 +24,17 @@ def test_indent(indent):
 
 def test_format():
     a = {"a": 1, "b": math.pi}
-    string = fjson.dumps(a, float_fmt=".6e")
+    string = fjson.dumps(a, float_format=".6e")
     assert string == '{"a": 1, "b": 3.141593e+00}'
 
 
 def test_format2():
     a = {"a": 1, "b": [math.pi, math.e]}
-    string = fjson.dumps(a, float_fmt=".6e")
+    string = fjson.dumps(a, float_format=".6e")
     assert string == '{"a": 1, "b": [3.141593e+00, 2.718282e+00]}'
+
+
+def test_numpy():
+    a = {"a": numpy.array([1, 2, 3])}
+    string = fjson.dumps(a)
+    assert string == '{"a": [1, 2, 3]}'

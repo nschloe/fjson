@@ -5,14 +5,16 @@ import fjson
 
 
 def test_simple():
-    a = {"a": 1, "b": math.pi}
+    a = {"a": 1, "b": math.pi, "c": ["x", "y", {"z": 5}], "d": {"r": 5, "s": [2, 3]}}
     ref = json.dumps(a)
+    print(ref)
     string = fjson.dumps(a)
+    print(string)
     assert ref == string
 
 
 def test_indent():
-    a = {"a": 1, "b": math.pi}
+    a = {"a": 1, "b": math.pi, "c": ["x", "y", "z"], "d": {"r": 5, "s": 7}}
     ref = json.dumps(a, indent=2)
     string = fjson.dumps(a, indent=2)
     assert ref == string

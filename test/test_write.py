@@ -25,3 +25,9 @@ def test_format():
     a = {"a": 1, "b": math.pi}
     string = fjson.dumps(a, float_fmt=".6e")
     assert string == '{"a": 1, "b": 3.141593e+00}'
+
+
+def test_format2():
+    a = {"a": 1, "b": [math.pi, math.e]}
+    string = fjson.dumps(a, float_fmt=".6e")
+    assert string == '{"a": 1, "b": [3.141593e+00, 2.718282e+00]}'

@@ -5,7 +5,7 @@ def dumps(d, float_fmt=None, indent=None):
 
 
 def _dict_to_string(sd, indent, level=1):
-    lst = []
+    out_lst = []
     length = len(sd)
     for k, (key, value) in enumerate(sd.items()):
         if indent is not None:
@@ -23,11 +23,15 @@ def _dict_to_string(sd, indent, level=1):
             out += f"{value}"
 
         if k < length - 1:
-            out += ", "
+            out += ","
+            if indent is None:
+                out += " "
 
-        lst.append(out)
+        out_lst.append(out)
 
-    return "{" + "".join(lst) + "}"
+    if indent is None:
+        return "{" + "".join(out_lst) + "}"
+    return "{\n" + "\n".join(out_lst) + "\n" + (indent * (level - 1) * " ") + "}"
 
 
 def _list_to_string(lst, indent, level=1):
@@ -47,11 +51,15 @@ def _list_to_string(lst, indent, level=1):
             out += f"{value}"
 
         if k < length - 1:
-            out += ", "
+            out += ","
+            if indent is None:
+                out += " "
 
         out_lst.append(out)
 
-    return "[" + "".join(out_lst) + "]"
+    if indent is None:
+        return "[" + "".join(out_lst) + "]"
+    return "[\n" + "\n".join(out_lst) + "\n" + (indent * (level - 1) * " ") + "]"
 
 
 def _value_to_string(value, float_fmt):
@@ -84,7 +92,7 @@ def _list_to_strings(lst, float_fmt):
 
 
 def _tostring_str(string):
-    return f"\"{string}\""
+    return f'"{string}"'
 
 
 def _tostring_int(val):

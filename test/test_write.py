@@ -1,5 +1,7 @@
-import math
 import json
+import math
+
+import pytest
 
 import fjson
 
@@ -7,16 +9,15 @@ import fjson
 def test_simple():
     a = {"a": 1, "b": math.pi, "c": ["x", "y", {"z": 5}], "d": {"r": 5, "s": [2, 3]}}
     ref = json.dumps(a)
-    print(ref)
     string = fjson.dumps(a)
-    print(string)
     assert ref == string
 
 
-def test_indent():
-    a = {"a": 1, "b": math.pi, "c": ["x", "y", "z"], "d": {"r": 5, "s": 7}}
-    ref = json.dumps(a, indent=2)
-    string = fjson.dumps(a, indent=2)
+@pytest.mark.parametrize("indent", [0, 2])
+def test_indent(indent):
+    a = {"a": 1, "b": math.pi, "c": ["x", "y", {"z": 5}], "d": {"r": 5, "s": [2, 3]}}
+    ref = json.dumps(a, indent=indent)
+    string = fjson.dumps(a, indent=indent)
     assert ref == string
 
 

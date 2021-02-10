@@ -1,26 +1,35 @@
+from typing import Optional, Tuple
+
+
 def dump(d, fp, **kwargs):
     fp.write(dumps(d, **kwargs))
 
 
-def dumps(d, float_format=None, indent=None):
+def dumps(
+    d,
+    float_format: Optional[str] = None,
+    indent: Optional[int] = None,
+    separators: Tuple[str, str] = (", ", ": "),
+):
     sd = _dict_to_strings(d, float_format)
-    return _dict_to_string(sd, indent)
+    return _dict_to_string(sd, indent, separators)
 
 
-def _dict_to_string(sd, indent, level=1):
+def _dict_to_string(sd, indent, separators=(", ", ": "), level=1):
     out_lst = []
     length = len(sd)
     for k, (key, value) in enumerate(sd.items()):
         out = "" if indent is None else (level * indent) * " "
 
-        out += f"{key}: "
+        out += f"{key}{separators[1]}"
 
-        out += _value_to_string2(value, indent, level + 1)
+        out += _value_to_string2(value, indent, separators, level + 1)
 
         if k < length - 1:
-            out += ","
-            if indent is None:
-                out += " "
+            sep = separators[0]
+            if indent is not None:
+                sep = sep.rstrip()
+            out += sep
 
         out_lst.append(out)
 
@@ -29,18 +38,19 @@ def _dict_to_string(sd, indent, level=1):
     return "{\n" + "\n".join(out_lst) + "\n" + (indent * (level - 1) * " ") + "}"
 
 
-def _list_to_string(lst, indent, level=1):
+def _list_to_string(lst, indent, separators, level=1):
     out_lst = []
     length = len(lst)
     for k, value in enumerate(lst):
         out = "" if indent is None else (level * indent) * " "
 
-        out += _value_to_string2(value, indent, level + 1)
+        out += _value_to_string2(value, indent, separators, level + 1)
 
         if k < length - 1:
-            out += ","
-            if indent is None:
-                out += " "
+            sep = separators[0]
+            if indent is not None:
+                sep = sep.rstrip()
+            out += sep
 
         out_lst.append(out)
 
@@ -49,11 +59,11 @@ def _list_to_string(lst, indent, level=1):
     return "[\n" + "\n".join(out_lst) + "\n" + (indent * (level - 1) * " ") + "]"
 
 
-def _value_to_string2(value, indent, level):
+def _value_to_string2(value, indent, separators, level):
     if isinstance(value, dict):
-        return _dict_to_string(value, indent, level)
+        return _dict_to_string(value, indent, separators, level=level)
     elif isinstance(value, list):
-        return _list_to_string(value, indent, level)
+        return _list_to_string(value, indent, separators, level)
     return f"{value}"
 
 

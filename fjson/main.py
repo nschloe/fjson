@@ -4,8 +4,7 @@ def dump(d, fp, **kwargs):
 
 def dumps(d, float_format=None, indent=None):
     sd = _dict_to_strings(d, float_format)
-    out = _dict_to_string(sd, indent)
-    return out
+    return _dict_to_string(sd, indent)
 
 
 def _dict_to_string(sd, indent, level=1):

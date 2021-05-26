@@ -1,7 +1,7 @@
 import json
 import math
 
-import numpy
+import numpy as np
 import pytest
 
 import fjson
@@ -39,7 +39,7 @@ def test_format2():
 
 
 def test_numpy():
-    a = {"a": numpy.array([1, 2, 3])}
+    a = {"a": np.array([1, 2, 3])}
     string = fjson.dumps(a)
     assert string == '{"a": [1, 2, 3]}'
 

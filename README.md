@@ -25,6 +25,7 @@ data = {"a": 1, "b": math.pi}
 string = fjson.dumps(data, float_format=".6e", indent=2, separators=(", ", ": "))
 print(string)
 ```
+<!--pytest-codeblocks:expected-output-->
 ```json
 {
   "a": 1,

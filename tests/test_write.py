@@ -4,7 +4,7 @@ import math
 import numpy as np
 import pytest
 
-import fjson
+import src.fjson.main as fjson
 
 
 def test_simple():
@@ -52,6 +52,15 @@ def test_separators():
 
     ref = json.dumps(a, indent=2, separators=("X", "Y"))
     string = fjson.dumps(a, indent=2, separators=("X", "Y"))
+    assert ref == string
+
+
+def test_json_datatypes():
+    a = {"string_type": "some string", "number_type": 10, "object_type": {"a": "x", "b": "y", "c": "z"}, "array_type": ["a", "b", "c"], "bool_type_true": True, "bool_type_false": False, "null_type": None}
+    ref = json.dumps(a)
+    string = fjson.dumps(a)
+    print(ref)
+    print(string)
     assert ref == string
 
 

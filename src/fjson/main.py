@@ -68,12 +68,16 @@ def _value_to_string2(value, indent, separators, level):
 
 
 def _value_to_string(value, float_fmt):
-    if isinstance(value, dict):
+    if value is None:
+        return _tostring_none(value)
+    elif isinstance(value, dict):
         return _dict_to_strings(value, float_fmt)
     elif isinstance(value, list):
         return _list_to_strings(value, float_fmt)
     elif isinstance(value, str):
         return _tostring_str(value)
+    elif isinstance(value, bool):
+        return _tostring_bool(value)
     elif isinstance(value, int):
         return _tostring_int(value)
     elif isinstance(value, float):
@@ -116,3 +120,11 @@ def _tostring_float(val, fmt):
     if fmt is None:
         return str(val)
     return f"{val:{fmt}}"
+
+
+def _tostring_bool(val):
+    return "true" if val else "false"
+
+
+def _tostring_none(val):
+    return "null"

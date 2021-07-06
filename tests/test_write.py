@@ -56,7 +56,15 @@ def test_separators():
 
 
 def test_json_datatypes():
-    a = {"string_type": "some string", "number_type": 10, "object_type": {"a": "x", "b": "y", "c": "z"}, "array_type": ["a", "b", "c"], "bool_type_true": True, "bool_type_false": False, "null_type": None}
+    a = {
+        "string_type": "some string",
+        "number_type": 10,
+        "object_type": {"a": "x", "b": "y", "c": "z"},
+        "array_type": ["a", "b", "c"],
+        "bool_type_true": True,
+        "bool_type_false": False,
+        "null_type": None,
+    }
     ref = json.dumps(a)
     string = fjson.dumps(a)
     print(ref)

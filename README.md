@@ -6,7 +6,8 @@
 [![PyPi Version](https://img.shields.io/pypi/v/fjson.svg?style=flat-square)](https://pypi.org/project/fjson)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/fjson.svg?style=flat-square)](https://pypi.org/pypi/fjson/)
 [![GitHub stars](https://img.shields.io/github/stars/nschloe/fjson.svg?style=flat-square&logo=github&label=Stars&logoColor=white)](https://github.com/nschloe/fjson)
-[![PyPi downloads](https://img.shields.io/pypi/dm/fjson.svg?style=flat-square)](https://pypistats.org/packages/fjson)
+[![Downloads](https://pepy.tech/badge/fjson/month?style=flat-square)](https://pepy.tech/project/fjson)
+<!--[![PyPi downloads](https://img.shields.io/pypi/dm/fjson.svg?style=flat-square)](https://pypistats.org/packages/fjson)-->
 
 [![gh-actions](https://img.shields.io/github/workflow/status/nschloe/fjson/ci?style=flat-square)](https://github.com/nschloe/fjson/actions?query=workflow%3Aci)
 [![codecov](https://img.shields.io/codecov/c/github/nschloe/fjson.svg?style=flat-square)](https://codecov.io/gh/nschloe/fjson)

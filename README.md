@@ -12,10 +12,10 @@
 [![codecov](https://img.shields.io/codecov/c/github/nschloe/fjson.svg?style=flat-square)](https://codecov.io/gh/nschloe/fjson)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
 
-
 The [json](https://docs.python.org/3/library/json.html) module in the Python standard
 library does not allow you to specify the format in which `float`s are written out the
 file. This module adds the `float_format` parameter.
+
 ```python
 import math
 import fjson
@@ -25,14 +25,15 @@ data = {"a": 1, "b": math.pi}
 string = fjson.dumps(data, float_format=".6e", indent=2, separators=(", ", ": "))
 print(string)
 ```
+
 <!--pytest-codeblocks:expected-output-->
+
 ```json
 {
   "a": 1,
-  "b": 3.141593e+00
+  "b": 3.141593
 }
 ```
-
 
 ### License
 

@@ -1,21 +1,26 @@
-from typing import Optional, Tuple
+from __future__ import annotations
 
 
-def dump(d, fp, **kwargs):
+def dump(d: dict, fp, **kwargs):
     fp.write(dumps(d, **kwargs))
 
 
 def dumps(
-    d,
-    float_format: Optional[str] = None,
-    indent: Optional[int] = None,
-    separators: Tuple[str, str] = (", ", ": "),
+    d: dict,
+    float_format: str | None = None,
+    indent: int | None = None,
+    separators: tuple[str, str] = (", ", ": "),
 ):
     sd = _dict_to_strings(d, float_format)
     return _dict_to_string(sd, indent, separators)
 
 
-def _dict_to_string(sd, indent, separators=(", ", ": "), level=1):
+def _dict_to_string(
+    sd: dict,
+    indent: int | None,
+    separators: tuple[str, str] = (", ", ": "),
+    level: int = 1,
+) -> str:
     out_lst = []
     length = len(sd)
     for k, (key, value) in enumerate(sd.items()):
@@ -38,7 +43,9 @@ def _dict_to_string(sd, indent, separators=(", ", ": "), level=1):
     return "{\n" + "\n".join(out_lst) + "\n" + (indent * (level - 1) * " ") + "}"
 
 
-def _list_to_string(lst, indent, separators, level=1):
+def _list_to_string(
+    lst: list, indent: int | None, separators: tuple[str, str], level: int = 1
+) -> str:
     out_lst = []
     length = len(lst)
     for k, value in enumerate(lst):
@@ -59,7 +66,9 @@ def _list_to_string(lst, indent, separators, level=1):
     return "[\n" + "\n".join(out_lst) + "\n" + (indent * (level - 1) * " ") + "]"
 
 
-def _value_to_string2(value, indent, separators, level):
+def _value_to_string2(
+    value, indent: int | None, separators: tuple[str, str], level: int
+) -> str:
     if isinstance(value, dict):
         return _dict_to_string(value, indent, separators, level=level)
     elif isinstance(value, list):
@@ -67,9 +76,9 @@ def _value_to_string2(value, indent, separators, level):
     return f"{value}"
 
 
-def _value_to_string(value, float_fmt):
+def _value_to_string(value, float_fmt: str | None):
     if value is None:
-        return _tostring_none(value)
+        return _tostring_none()
     elif isinstance(value, dict):
         return _dict_to_strings(value, float_fmt)
     elif isinstance(value, list):
@@ -94,7 +103,7 @@ def _value_to_string(value, float_fmt):
     raise ValueError(f"Don't know how to handle entry of type {type(value)}.")
 
 
-def _dict_to_strings(d, float_fmt):
+def _dict_to_strings(d: dict, float_fmt: str | None) -> dict[str, str]:
     # convert everything to strings
     out = {}
     for key, value in d.items():
@@ -104,27 +113,27 @@ def _dict_to_strings(d, float_fmt):
     return out
 
 
-def _list_to_strings(lst, float_fmt):
+def _list_to_strings(lst: list, float_fmt: str | None) -> list:
     return [_value_to_string(value, float_fmt) for value in lst]
 
 
-def _tostring_str(string):
+def _tostring_str(string: str) -> str:
     return f'"{string}"'
 
 
-def _tostring_int(val):
+def _tostring_int(val: int) -> str:
     return str(val)
 
 
-def _tostring_float(val, fmt):
+def _tostring_float(val: float, fmt: str | None) -> str:
     if fmt is None:
         return str(val)
     return f"{val:{fmt}}"
 
 
-def _tostring_bool(val):
+def _tostring_bool(val: bool) -> str:
     return "true" if val else "false"
 
 
-def _tostring_none(val):
+def _tostring_none():
     return "null"

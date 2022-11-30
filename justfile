@@ -1,4 +1,4 @@
-version := `python3 -c "from configparser import ConfigParser; p = ConfigParser(); p.read('setup.cfg'); print(p['metadata']['version'])"`
+version := `python3 -c "from src.fjson.__about__ import __version__; print(__version__)"`
 
 default:
 	@echo "\"just publish\"?"

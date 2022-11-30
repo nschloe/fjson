@@ -18,6 +18,7 @@ jobs:
         uses: pre-commit/action@v3.0.0
 
   build:
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
